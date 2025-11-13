@@ -1,0 +1,48 @@
+graph TD
+    %% Input Layer
+    Input["<b>INPUT DATA</b><br/>Shape: (N, T, V, C)<br/>(Batch, 128 frames, 27 nodes, 2 channels)<br/>ASL skeleton keypoints (x, y coordinates)<br/>27 nodes = pose + hands landmarks"]
+    style Input fill:#ADD8E6,stroke:#333,stroke-width:3px,color:#000
+    
+    Convert["Format Conversion<br/>(N,T,V,C) → (N,C,T,V)"]
+    style Convert fill:#E8E8E8,stroke:#666,stroke-width:2px,color:#000
+    
+    %% Data Batch Normalization
+    BatchNorm["<b>DATA BATCH NORMALIZATION</b><br/>Normalize across V*C dimension<br/>Shape: (N, C=2, T=128, V=27)<br/><i>Applied BEFORE ST-GCN blocks</i><br/>(critical difference from old architecture)"]
+    style BatchNorm fill:#FFB347,stroke:#333,stroke-width:3px,color:#000
+    
+    %% ST-GCN Block Groups
+    Group1["<b>ST-GCN BLOCKS 1-4</b><br/>Channels: 64<br/>Stride: [1, 1, 1, 1]<br/><br/>Each block contains:<br/>• Spatial Graph Conv (GCN)<br/>• Temporal Conv (TCN)<br/>• Batch Normalization<br/>• ReLU Activation<br/>• Dropout (0.05)<br/>• Residual Connection<br/><br/><i>Edge Importance Weighting (learnable)</i><br/>Output: (N, 64, T=128, V=27)"]
+    style Group1 fill:#E6E6FA,stroke:#333,stroke-width:3px,color:#000
+    
+    Group2["<b>ST-GCN BLOCKS 5-7</b><br/>Channels: 128<br/>Stride: [2, 1, 1]<br/>(Block 5 has stride=2)<br/><br/>Each block contains:<br/>• Spatial Graph Conv (GCN)<br/>• Temporal Conv (TCN)<br/>• Batch Normalization<br/>• ReLU Activation<br/>• Dropout (0.05)<br/>• Residual Connection<br/><br/><i>Edge importance × Adjacency matrix</i><br/>Output: (N, 128, T=64, V=27)<br/><b>Time reduced by 2</b>"]
+    style Group2 fill:#DDA0DD,stroke:#333,stroke-width:3px,color:#000
+    
+    Group3["<b>ST-GCN BLOCKS 8-10</b><br/>Channels: 256<br/>Stride: [2, 1, 1]<br/>(Block 8 has stride=2)<br/><br/>Each block contains:<br/>• Spatial Graph Conv (GCN)<br/>• Temporal Conv (TCN)<br/>• Batch Normalization<br/>• ReLU Activation<br/>• Dropout (0.05)<br/>• Residual Connection<br/><br/><i>Final feature extraction</i><br/>Output: (N, 256, T=32, V=27)<br/><b>Time reduced by 2 again</b>"]
+    style Group3 fill:#BA55D3,stroke:#333,stroke-width:3px,color:#000
+    
+    %% Global Average Pooling
+    GAP["<b>GLOBAL AVERAGE POOLING</b><br/>Average over Time (T) and Vertices (V)<br/>Input: (N, 256, 32, 27)<br/>Output: (N, 256)<br/><i>Spatial-temporal features aggregated</i><br/>Compressed to 256-D feature vector"]
+    style GAP fill:#9370DB,stroke:#333,stroke-width:3px,color:#000
+    
+    %% Fully Connected Layer
+    FC["<b>FULLY CONNECTED CLASSIFIER</b><br/>Input: (N, 256)<br/>Output: (N, 10)<br/>Logits (no softmax)<br/>10 = number of ASL sign classes"]
+    style FC fill:#4169E1,stroke:#333,stroke-width:3px,color:#000
+    
+    %% Output
+    Output["<b>OUTPUT LOGITS</b><br/>Shape: (N, 10)<br/>Softmax applied during inference<br/>Final class predictions"]
+    style Output fill:#90EE90,stroke:#333,stroke-width:3px,color:#000
+    
+    %% Flow
+    Input --> Convert
+    Convert --> BatchNorm
+    BatchNorm -->|Normalized features| Group1
+    Group1 -->|Temporal downsampling| Group2
+    Group2 -->|Further downsampling| Group3
+    Group3 -->|256-D features| GAP
+    GAP -->|Feature vector| FC
+    FC -->|Class predictions| Output
+    
+    %% Legend and Key Details
+    Legend["<b>KEY ARCHITECTURE DETAILS</b><br/><br/><b>Hyperparameters:</b><br/>• Dropout: 0.05 (critical!)<br/>• Batch size: 32<br/>• Learning rate: 1e-3 (CosineDecay)<br/>• Augmentation: Minimal (shear 0.1, rotation 0.1)<br/><br/><b>Graph Structure:</b><br/>• 27 nodes (pose + hand landmarks)<br/>• Spatial partitioning strategy<br/>• Max hop distance: 1<br/>• Edge importance: Learnable per-block<br/><br/><b>Performance:</b><br/>• Training samples: 234<br/>• Validation accuracy: 86.30%<br/>• Test accuracy: 87.91%<br/><br/><b>Abbreviations:</b><br/>• N = Batch size<br/>• T = Temporal frames<br/>• V = Vertices (graph nodes)<br/>• C = Channels (feature dimensions)<br/>• GCN = Graph Convolutional Network<br/>• TCN = Temporal Convolutional Network"]
+    style Legend fill:#FFFACD,stroke:#333,stroke-width:2px,color:#000
+    

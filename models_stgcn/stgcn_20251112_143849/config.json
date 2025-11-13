@@ -1,0 +1,23 @@
+{
+  "num_classes": 10,
+  "class_names": [
+    "BITE",
+    "BREAKFAST",
+    "DARK",
+    "DEAF",
+    "DECIDE",
+    "DEMAND",
+    "DOG",
+    "ROCKINGCHAIR",
+    "TRIP",
+    "WHATFOR"
+  ],
+  "batch_size": 32,
+  "epochs": 100,
+  "learning_rate": 0.001,
+  "dropout": 0.05,
+  "val_accuracy": 0.8630136847496033,
+  "val_loss": 0.9851322174072266,
+  "test_accuracy": 0.8791208863258362,
+  "test_loss": 0.9661856889724731
+}
