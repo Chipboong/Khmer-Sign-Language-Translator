@@ -3,7 +3,7 @@ import pandas as pd
 import os
 
 # Input parquet (your original)
-PARQUET_PATH = r"D:\VS Code\CV\American Sign Language Translator\dataset\train_landmark_files\32319\2877887.parquet"
+PARQUET_PATH = r"D:\VS Code\CV\American Sign Language Translator\dataset\train_landmark_files\29302\293142.parquet"
 
 # Output directory (dataset_test) and output file path
 OUT_DIR = r"D:\VS Code\CV\American Sign Language Translator\dataset_test"

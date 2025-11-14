@@ -2,5 +2,8 @@
 ASL_Dataset/
 dataset/
 WSL_Dataset/
+MSL-ASL/
+dataset_test/
+New_MSL_Dataset/
 #ignore file
 verify.py

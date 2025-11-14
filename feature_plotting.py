@@ -20,7 +20,7 @@ from matplotlib import animation
 from PIL import Image
 
 # ------------------ CONFIG ------------------
-PARQUET_PATH = r"D:\VS Code\CV\American Sign Language Translator\dataset\train_landmark_files\55372\3009678.parquet"
+PARQUET_PATH = r"D:\VS Code\CV\American Sign Language Translator\dataset\train_landmark_files\29302\293142.parquet"
 
 # change to your frame size (pixels) if coordinates are normalized
 WIDTH = 1.5   # <-- change if your video frame width is different
@@ -86,7 +86,7 @@ def plot_single_frame(frame_df_px, frame_id=None, overlay_image=None, title=None
         ax.set_xlim(0, img.width)
         ax.set_ylim(img.height, 0)
     else:
-        ax.set_xlim(-1, WIDTH)
+        ax.set_xlim(-0.5, WIDTH)
         ax.set_ylim(HEIGHT, 0)
 
     ax.scatter(x, y, s=60, edgecolors='k')
@@ -132,7 +132,7 @@ def animate_landmarks(df, width, height, overlay_image=None, frames_to_plot=None
         ax.set_xlim(0, img.width)
         ax.set_ylim(img.height, 0)
     else:
-        ax.set_xlim(-1, width)
+        ax.set_xlim(-0.5, width)
         ax.set_ylim(height, 0)
     scat = ax.scatter([], [], s=60, edgecolors='k')
     title = ax.text(0.5, 1.02, "", transform=ax.transAxes, ha="center")
