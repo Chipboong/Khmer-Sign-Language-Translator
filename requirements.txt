@@ -1,0 +1,22 @@
+# ASL Citizen ST-GCN Project Dependencies
+# Python 3.8+ required
+
+# Core deep learning framework
+tensorflow>=2.13.0,<2.18.0
+
+# Computer vision and video processing
+opencv-python>=4.8.0
+mediapipe==0.10.9
+
+# Scientific computing
+numpy>=1.24.0,<2.0.0
+
+# Data visualization and analysis
+matplotlib>=3.7.0
+
+# Progress bars
+tqdm>=4.65.0
+
+# Note: Standard library packages used (no installation needed):
+# - os, sys, json, argparse, pathlib, time, platform, logging
+# - collections, datetime, csv, shutil
