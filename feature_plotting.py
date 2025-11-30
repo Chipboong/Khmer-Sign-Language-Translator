@@ -20,7 +20,7 @@ from matplotlib import animation
 from PIL import Image
 
 # ------------------ CONFIG ------------------
-PARQUET_PATH = r"D:\VS Code\CV\American Sign Language Translator\dataset\train_landmark_files\29302\293142.parquet"
+PARQUET_PATH = r"D:\VS Code\CV\American Sign Language Translator\dataset/train_landmark_files/37779/67916304.parquet"
 
 # change to your frame size (pixels) if coordinates are normalized
 WIDTH = 1.5   # <-- change if your video frame width is different

@@ -6,6 +6,7 @@ WSL_Dataset/
 MSL-ASL/
 dataset_test/
 New_MSL_Dataset/
+preprocessed_stgcn/
 #ignore file
 verify.py
 =======

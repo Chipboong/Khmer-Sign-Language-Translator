@@ -14,7 +14,7 @@ BATCH_SIZE = 64  # train 64 samples at a time
 EPOCHS = 20
 LEARNING_RATE = 4e-3
 SEQ_LEN = 384
-DEVICE = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+DEVICE = "cuda"
 
 # Paths
 TRAIN_CSV = 'src/data/metadata/train.csv'

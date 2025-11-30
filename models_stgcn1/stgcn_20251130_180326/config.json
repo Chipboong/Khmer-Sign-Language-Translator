@@ -1,0 +1,33 @@
+{
+  "num_classes": 20,
+  "class_names": [
+    "BITE",
+    "BREAKFAST",
+    "DARK",
+    "DEAF",
+    "DECIDE",
+    "DEMAND",
+    "DOG",
+    "ROCKINGCHAIR",
+    "TRIP",
+    "WHATFOR",
+    "bird",
+    "eat",
+    "finish",
+    "fish",
+    "milk",
+    "mother",
+    "orange",
+    "sister",
+    "teacher",
+    "want"
+  ],
+  "batch_size": 32,
+  "epochs": 100,
+  "learning_rate": 0.001,
+  "dropout": 0.05,
+  "val_accuracy": 0.8372092843055725,
+  "val_loss": 1.2695406675338745,
+  "test_accuracy": 0.8715083599090576,
+  "test_loss": 0.8344411253929138
+}

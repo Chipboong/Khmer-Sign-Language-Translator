@@ -286,7 +286,7 @@ def main():
     
     # Configuration (matching reference PyTorch implementation)
     DATA_DIR = "../preprocessed_stgcn"
-    OUTPUT_DIR = "../models_stgcn"
+    OUTPUT_DIR = "../models_stgcn1"
     BATCH_SIZE = 32  # Changed from 16 to match reference
     EPOCHS = 100
     LEARNING_RATE = 1e-3
